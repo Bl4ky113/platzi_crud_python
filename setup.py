@@ -6,7 +6,8 @@ setup(
         version="0.1",
         py_modules=['pv'],
         install_requires=[
-            "Click"
+            "click",
+            "tabulate"
             ],
         entry_points="""
             [console_scripts]

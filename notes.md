@@ -144,3 +144,8 @@ obj ctx. El cual tiene un .obj, que es donde definimos el contexto o los
 datos. Los cuales tienen el estado o contexto de la ejecucion actual 
 del comando.
 
+Desde la clase de Click, he estado bastante más contento con la clase, ya que de hecho me esta haciendo 
+trabajar en un CRUD y me esta dando bases para trabajar con otros. 
+En general las notas serían de click, pero creo que se puede dedicar y hacer 
+mejores notas en otro curso o proyecto.
+
