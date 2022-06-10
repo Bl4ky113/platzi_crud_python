@@ -56,11 +56,11 @@ def update (ctx, id_client_to_update:int) -> None:
     client_service = ClientService(ctx.obj['clients_table'])
     client_list = client_service.list_clients()
 
-    client = [client for client in client_list if client["id"] == id_client_to_update]
+    client_to_update = [client for client in client_list if client["idx"] == id_client_to_update]
 
-    if client:
-        client = _update_client_flow(Client(**client[0]))
-        client_service.update_clients(client)
+    if client_to_update:
+        client_to_update = _update_client_flow(Client(**client_to_update[0]))
+        client_service.update_clients(client_to_update)
         click.echo("Client Found And Updated")
     else:
         click.echo("Client Not Found")
@@ -76,7 +76,27 @@ def _update_client_flow (client:Client) -> Client:
     return client
 
 @clients.command()
+@click.argument("id_client_to_delete", type=str)
 @click.pass_context
-def delete (ctx, client_id:int) -> None:
+def delete (ctx, id_client_to_delete:int|str) -> None:
     """ Deletes a Client, by the given ID """
-    pass
+    client_service = ClientService(ctx.obj["clients_table"])
+    client_list = client_service.list_clients()
+
+    client_to_delete = [client for client in client_list if client["idx"] == id_client_to_delete]
+
+    if client_to_delete and _confirm_action("Do You want to Delete This User (y/n)"):
+        client_to_delete = Client(**client_to_delete[0])
+        client_service.delete_clients(client_to_delete)
+        click.echo("Client Deleted")
+    else:
+        click.echo("Client Not Found")
+
+def _confirm_action (label:str) -> bool:
+    confirmation = click.prompt(label, default="n", confirmation_prompt=True)
+
+    if confirmation.lower()[0] == "y":
+        return True
+
+    return False
+

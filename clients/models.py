@@ -2,12 +2,12 @@
 from uuid import uuid4
 
 class Client:
-    def __init__ (self, name:str, company:str, email:str, position:str, id=None):
+    def __init__ (self, name:str, company:str, email:str, position:str, idx=None):
         self.name = name
         self.company = company
         self.email = email
         self.position = position
-        self.id = id or uuid4()
+        self.idx = idx or uuid4()
  
 
     def to_dict (self):
@@ -15,4 +15,4 @@ class Client:
 
     @staticmethod
     def schema ():
-        return ["id", "name", "company", "email", "position"]
+        return ["idx", "name", "company", "email", "position"]
